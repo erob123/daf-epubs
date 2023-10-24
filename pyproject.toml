@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "daf-epubs"
+version = "0.0.1"
+description = "Hybrid rerank search for DAF epubs using chainbase and chainbase-hrr"
+authors = ["Eric Robinson"]
+license = "MIT"
+readme = "README.md"
+packages = []
+
+[tool.poetry.dependencies]
+python = "~3.11"
+chainbase = "^0.0.1"
+chainbase-lib = "^0.0.1"
+chainbase-hrr = "^0.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
