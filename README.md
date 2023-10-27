@@ -1,3 +1,3 @@
 # Get started
 1. `poetry install`
-2. `uvicorn hybrid_rerank_retrieval.tests.example_app:auto_app --reload`
+2. `uvicorn daf-epubs.main:auto_app --reload`

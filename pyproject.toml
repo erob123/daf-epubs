@@ -9,9 +9,9 @@ packages = []
 
 [tool.poetry.dependencies]
 python = "~3.11"
-chainbase = "^0.0.1"
-chainbase-lib = "^0.0.1"
-chainbase-hrr = "^0.0.1"
+chainbase = "^0.0.3"
+chainbase-lib = "^0.0.3"
+chainbase-hrr = "^0.0.3"
 
 [build-system]
 requires = ["poetry-core"]

@@ -33,7 +33,7 @@ os.environ["ENV_VAR_FOLDER"] = os.path.join(
 os.environ["SECRETS"] = "True" # must be true to use OpenAI API key locally
 ## ************ ENV VAR INIT BEFORE IMPORTS ************ ##
 
-from hybrid_rerank_retrieval import (
+from chainbase.hybrid_rerank_retrieval import (
     DocumentModel,
     CRUDDocument,
     RetrievalService,
