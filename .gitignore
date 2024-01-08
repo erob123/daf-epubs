@@ -11,6 +11,8 @@ training_checkpoints_archive
 .pylint
 *.pkl
 
+saved_op_pdfs/
+
 # dependencies
 /node_modules
 /.pnp

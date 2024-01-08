@@ -1,0 +1,3 @@
+# Exclude the "tests" and "archive" directories
+tests/
+archive/

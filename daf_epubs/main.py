@@ -1,110 +1,95 @@
-"""
-This is an example app for performing document query retrieval.  It exposes two basic endpoints:
-- a `documents` endpoint for CRUD operations on documents.  This is where you can upload
-    documents to the database for later retrieval.  Those documents can be text, chats, chunked PDFs, etc.
-
-- a `retrieval` endpoint for performing query retrieval.  This endpoint takes a query and returns
-    a list of documents that are relevant to the query.  The documents are ranked by relevance.
-    This endpoint returns an HTML page with the results.
-
-This app is built on top of the aimbase library, which is a library for building
-AI microservices.  It is built on top of FastAPI, SQLAlchemy, and Minio.  It is
-designed to be a lightweight, easy-to-use library for building AI microservices
-that can be deployed anywhere (on-prem, cloud, etc.).  It is particularly 
-useful for building AI microservices with use on proprietary data, as it
-provides a simple way to store data in a database and models in your own Minio
-object store.  
-
-This app is also built on top of the instarest library, which is a library for
-building RESTful APIs.  It is built on top of FastAPI and SQLAlchemy.  It is
-designed to be a lightweight, easy-to-use library for building RESTful APIs.
-"""
 ## ************ ENV VAR INIT BEFORE IMPORTS ************ ##
 # Make sure to set ENVIRONMENT, ENV_VAR_FOLDER, and SECRETS in your environment,
 # outside of any .env file.  This is to ensure that the correct environment
 # variables are loaded before the app is initialized.
 # Default values are: ENVIRONMENT=local, ENV_VAR_FOLDER=./env_vars, SECRETS=False if not set here
-import os
-
-os.environ["ENVIRONMENT"] = "local"
-os.environ["ENV_VAR_FOLDER"] = os.path.join(
-    os.path.abspath(os.path.dirname(__file__)), "env_vars"
-)
-os.environ["SECRETS"] = "True" # must be true to use OpenAI API key locally
 ## ************ ENV VAR INIT BEFORE IMPORTS ************ ##
 
-from chainbase.hybrid_rerank_retrieval import (
-    DocumentModel,
-    CRUDDocument,
-    RetrievalService,
-    all_mini_service,
-    marco_service,
-    QueryRetrievalRouterBase,
-    OpenAIRetrieveSummarizeService,
+from aimbase.crud.base import CRUDBaseAIModel
+from aimbase.db.base import BaseAIModel
+from aimbase.initializer import AimbaseInitializer
+from aimbase.routers.sentence_transformers_router import (
+    SentenceTransformersRouter,
+)
+from aimbase.dependencies import get_minio
+from aimbase.crud.sentence_transformers_vector import (
+    CRUDSentenceTransformersVectorStore,
+)
+from aimbase.crud.vector import CRUDSource
+from aimbase.db.vector import AllMiniVectorStore, SourceModel
+from instarest import (
+    AppBase,
+    DeclarativeBase,
+    SchemaBase,
+    Initializer,
+    get_db,
+    RESTRouter,
+    CRUDBase,
+)
+
+from aimbase.services.sentence_transformers_inference import (
+    SentenceTransformersInferenceService,
 )
 
 # TODO: import to __init__.py for aimbase and update imports here
-from aimbase.initializer import AimbaseInitializer
-from aimbase.dependencies import get_minio
-from instarest import AppBase, DeclarativeBase, SchemaBase, Initializer, RESTRouter
-
-Initializer(DeclarativeBase).execute()
-AimbaseInitializer().execute()
+# Initializer(DeclarativeBase).execute(vector_toggle=True)
+# AimbaseInitializer().execute()
 
 # built pydantic data transfer schemas automagically
-document_crud_schemas = SchemaBase(DocumentModel)
+base_ai_schemas = SchemaBase(BaseAIModel)
+vector_embedding_schemas = SchemaBase(AllMiniVectorStore)
 
-# build db service automagically
-document_crud = CRUDDocument(DocumentModel)
+# build db services automagically
+crud_ai_test = CRUDBaseAIModel(BaseAIModel)
+crud_vector_test = CRUDSentenceTransformersVectorStore(AllMiniVectorStore)
 
 ## ************ DEV INITIALIZATION ONLY (if desired to simulate
-#  no internet connection) ************ ##
-all_mini_service.dev_init()
-marco_service.dev_init()
+#  no internet connection...will auto init on first endpoint hit, but
+#  will not auto-upload to minio) ************ ##
+SentenceTransformersInferenceService(
+    model_name="all-MiniLM-L6-v2",
+    db=next(get_db()),
+    crud=crud_ai_test,
+    s3=get_minio(),
+    prioritize_internet_download=False,
+).dev_init()
 ## ************ DEV INITIALIZATION ONLY ************ ##
 
-# build document REST router automagically
-document_router = RESTRouter(
-    schema_base=document_crud_schemas,
-    crud_base=document_crud,
-    prefix="/documents",
+# build ai router automagically
+document_vector_store_router = SentenceTransformersRouter(
+    model_name="all-MiniLM-L6-v2",
+    schema_base=vector_embedding_schemas,
+    crud_ai_base=crud_ai_test,
+    crud_base=crud_vector_test,
+    prefix="/chunks",
+    allow_delete=True,
+)
+
+# built pydantic data transfer schemas & crud db services automagically
+source_model_schemas = SchemaBase(
+    SourceModel,
+    optional_fields=[
+        "description",
+        "downloaded_datetime",
+        "private_url",
+        "public_url",
+        "embedding",
+    ],
+)
+crud_source_model = CRUDSource(SourceModel)
+
+# build sources router automagically
+sources_router = RESTRouter(
+    schema_base=source_model_schemas,
+    crud_base=crud_source_model,
+    prefix="/sources",
     allow_delete=False,
-)
-
-# build retrieval service automagically
-retrieval_service = RetrievalService(
-    sentence_inference_service=all_mini_service,
-    cross_encoder_inference_service=marco_service,
-    document_crud=document_crud,
-    s3=get_minio(),
-)
-
-# build retrieval router automagically
-retrieval_router = QueryRetrievalRouterBase(
-    retrieval_service=retrieval_service,
-    prefix="/retrieval",
-    description="Query Retrieval",
-)
-
-# build summary retrieval service automagically
-summary_retrieval_service = OpenAIRetrieveSummarizeService(
-    sentence_inference_service=all_mini_service,
-    cross_encoder_inference_service=marco_service,
-    document_crud=document_crud,
-    s3=get_minio(),
-)
-
-# build summary retrieval router automagically
-summary_retrieval_router = QueryRetrievalRouterBase(
-    retrieval_service=summary_retrieval_service,
-    prefix="/summary_retrieval",
-    description="Query Retrieval and Summary",
 )
 
 # setup base up from routers
 app_base = AppBase(
-    crud_routers=[document_router, retrieval_router, summary_retrieval_router],
-    app_name="Chainbase Hybrid Rerank Retrieval Example App",
+    crud_routers=[document_vector_store_router, sources_router],
+    app_name="DAF ePubs Retrieval API",
 )
 
 # automagic and version app
@@ -112,3 +97,5 @@ auto_app = app_base.get_autowired_app()
 
 # core underlying app
 app = app_base.get_core_app()
+
+#TODO: initialize models before running
