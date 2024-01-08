@@ -1,6 +1,6 @@
 import time
 import datetime
-from scraper import run_scraper
+from scrape_epubs.src.scraper import run_scraper
 
 # Schedule the function to run every Saturday at 05:01 UTC
 def schedule_function():

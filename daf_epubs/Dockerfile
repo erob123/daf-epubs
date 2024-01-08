@@ -1,10 +1,6 @@
 # Use the official Python Alpine image as the base image
 FROM python:3.11.7-alpine3.19
 
-# runs this command to install chromedriver into docker layer: sudo apt-get install chromium-chromedriver
-# this is needed for selenium to work, and tesseract-ocr for pdf parsing of scanned files to work
-RUN apt-get update && apt-get install -y chromium-chromedriver tesseract-ocr
-
 # Set environment variables for non-secret configuration
 ENV APP_HOME /app
 ENV POETRY_HOME /poetry
@@ -42,4 +38,4 @@ EXPOSE 8000
 
 # Command to run the application as the non-root user
 USER myappuser
-CMD ["python", "main.py"]
+CMD ["poetry", "run", "uvicorn", "main:auto_app", "--host", "0.0.0.0", "--port", "8000"]

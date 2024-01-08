@@ -3,13 +3,6 @@
 # outside of any .env file.  This is to ensure that the correct environment
 # variables are loaded before the app is initialized.
 # Default values are: ENVIRONMENT=local, ENV_VAR_FOLDER=./env_vars, SECRETS=False if not set here
-import os
-
-os.environ["ENVIRONMENT"] = "local"
-os.environ["ENV_VAR_FOLDER"] = os.path.join(
-    os.path.abspath(os.path.dirname(__file__)), "env_vars"
-)
-os.environ["SECRETS"] = "False"
 ## ************ ENV VAR INIT BEFORE IMPORTS ************ ##
 
 from aimbase.crud.base import CRUDBaseAIModel
@@ -22,6 +15,7 @@ from aimbase.dependencies import get_minio
 from aimbase.crud.sentence_transformers_vector import (
     CRUDSentenceTransformersVectorStore,
 )
+from aimbase.crud.vector import CRUDSource
 from aimbase.db.vector import AllMiniVectorStore, SourceModel
 from instarest import (
     AppBase,
@@ -38,8 +32,8 @@ from aimbase.services.sentence_transformers_inference import (
 )
 
 # TODO: import to __init__.py for aimbase and update imports here
-Initializer(DeclarativeBase).execute(vector_toggle=True)
-AimbaseInitializer().execute()
+# Initializer(DeclarativeBase).execute(vector_toggle=True)
+# AimbaseInitializer().execute()
 
 # built pydantic data transfer schemas automagically
 base_ai_schemas = SchemaBase(BaseAIModel)
@@ -82,7 +76,7 @@ source_model_schemas = SchemaBase(
         "embedding",
     ],
 )
-crud_source_model = CRUDBase(SourceModel)
+crud_source_model = CRUDSource(SourceModel)
 
 # build sources router automagically
 sources_router = RESTRouter(
@@ -103,3 +97,5 @@ auto_app = app_base.get_autowired_app()
 
 # core underlying app
 app = app_base.get_core_app()
+
+#TODO: initialize models before running

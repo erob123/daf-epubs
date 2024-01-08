@@ -56,9 +56,9 @@ services:
       - minio3
       - minio4
   db:
-    image: postgres:13-alpine
+    image: ankane/pgvector:v0.5.1
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - epubs_postgres_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -68,7 +68,7 @@ services:
   pgadmin:
     image: dpage/pgadmin4
     volumes:
-      - pgadmin-data:/var/lib/pgadmin/
+      - epubs_pgadmin_data:/var/lib/pgadmin/
     depends_on:
       - db
     environment:
@@ -77,8 +77,8 @@ services:
     ports:
       - "5050:80"
 volumes:
-    postgres_data:
-    pgadmin-data:
+    epubs_postgres_data:
+    epubs_pgadmin_data:
     data1-1:
     data1-2:
     data2-1:

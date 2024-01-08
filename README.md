@@ -1,3 +1,4 @@
 # Get started
 1. `poetry install`
-2. `uvicorn daf_epubs.main:auto_app --reload`
+1. `cd daf_epubs`
+1. `uvicorn main:auto_app --reload`
