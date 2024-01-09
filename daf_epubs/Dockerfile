@@ -1,5 +1,5 @@
 # Use the official Python Alpine image as the base image
-FROM python:3.11.7-alpine3.19
+FROM ubuntu:22.04
 
 # Set environment variables for non-secret configuration
 ENV APP_HOME /app
