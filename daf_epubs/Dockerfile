@@ -5,6 +5,7 @@ FROM python:3.11.7
 ENV APP_HOME /app
 ENV POETRY_HOME /poetry
 ENV PATH $POETRY_HOME/bin:$PATH
+ENV POETRY_CACHE_DIR=$APP_HOME/.cache/pypoetry
 
 # Install Poetry
 RUN pip install poetry
@@ -20,8 +21,7 @@ RUN chown myappuser:myappgroup $APP_HOME
 # Copy only the dependencies file to the container
 COPY pyproject.toml poetry.lock* $APP_HOME/
 
-# Install project dependencies as the non-root user inside the project directory in .venv/
-ENV POETRY_VIRTUALENVS_IN_PROJECT=true
+# Install project dependencies as the non-root user
 USER myappuser
 RUN poetry install --no-root
 
