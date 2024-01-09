@@ -11,7 +11,7 @@ RUN pip install poetry
 RUN mkdir $POETRY_HOME
 
 # Create a non-root user and group
-RUN addgroup -S myappgroup && adduser -S myappuser -G myappgroup
+RUN groupadd myappgroup && useradd -G myappgroup myappuser
 
 # Set the working directory to /app and change ownership to the non-root user
 WORKDIR $APP_HOME
