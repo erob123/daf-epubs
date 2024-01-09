@@ -20,7 +20,8 @@ RUN chown myappuser:myappgroup $APP_HOME
 # Copy only the dependencies file to the container
 COPY pyproject.toml poetry.lock* $APP_HOME/
 
-# Install project dependencies as the non-root user
+# Install project dependencies as the non-root user inside the project directory in .venv/
+ENV POETRY_VIRTUALENVS_IN_PROJECT=true
 USER myappuser
 RUN poetry install --no-root
 
