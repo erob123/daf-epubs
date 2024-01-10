@@ -33,18 +33,18 @@ jobs:
       - name: Build Docker image
         working-directory: ${{ env.PROJECT_DIR }}
         run: |
-          docker build -t ${{ secrets.GCR_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ART_REG_REPO_NAME }} .
+          docker build -t ${{ secrets.GCR_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ART_REG_REPO_IMAGE_NAME }} .
 
       - name: Push Docker image
         working-directory: ${{ env.PROJECT_DIR }}
         run: |
-          docker push ${{ secrets.GCR_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ART_REG_REPO_NAME }}
+          docker push ${{ secrets.GCR_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ART_REG_REPO_IMAGE_NAME }}
 
       - name: Deploy to Cloud Run
         working-directory: ${{ env.PROJECT_DIR }}
         run: |
           gcloud run deploy ${{ secrets.GCP_CLOUD_RUN_APP_NAME }} \
-            --image ${{ secrets.GCR_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ART_REG_REPO_NAME }} \
+            --image ${{ secrets.GCR_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ART_REG_REPO_IMAGE_NAME }} \
             --platform managed \
             --region us-central1 \
             --update-env-vars \
