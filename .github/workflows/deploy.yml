@@ -47,6 +47,8 @@ jobs:
             --image ${{ secrets.GCR_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ART_REG_REPO_IMAGE_NAME }} \
             --platform managed \
             --region us-central1 \
+            --memory 1Gi \
+            --cpu 1 \
             --update-env-vars ENVIRONMENT=production \
             --update-env-vars SUPABASE_USER=${{ secrets.SUPABASE_USER }} \
             --update-env-vars SUPABASE_PASSWORD=${{ secrets.SUPABASE_PASSWORD }} \
