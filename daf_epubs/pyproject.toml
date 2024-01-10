@@ -9,7 +9,7 @@ packages = []
 
 [tool.poetry.dependencies]
 python = "~3.11"
-aimbase = "^0.0.6"
+aimbase = "^0.0.7"
 sentence-transformers = "^2.2.2"
 
 [tool.poetry.group.dev.dependencies]

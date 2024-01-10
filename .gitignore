@@ -1,5 +1,5 @@
 # local secrets
-secrets.env
+secrets*.env
 
 # local development and generation
 coverage-re

@@ -30,15 +30,15 @@ jobs:
         run: |
           gcloud auth configure-docker ${{ secrets.GCR_REGION }}-docker.pkg.dev --quiet
 
-      # - name: Build Docker image
-      #   working-directory: ${{ env.PROJECT_DIR }}
-      #   run: |
-      #     docker build -t ${{ secrets.GCR_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ART_REG_REPO_IMAGE_NAME }} .
+      - name: Build Docker image
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: |
+          docker build -t ${{ secrets.GCR_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ART_REG_REPO_IMAGE_NAME }} .
 
-      # - name: Push Docker image
-      #   working-directory: ${{ env.PROJECT_DIR }}
-      #   run: |
-      #     docker push ${{ secrets.GCR_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ART_REG_REPO_IMAGE_NAME }}
+      - name: Push Docker image
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: |
+          docker push ${{ secrets.GCR_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ART_REG_REPO_IMAGE_NAME }}
 
       - name: Deploy to Cloud Run
         working-directory: ${{ env.PROJECT_DIR }}
@@ -55,9 +55,9 @@ jobs:
             --update-env-vars SUPABASE_HOST=${{ secrets.SUPABASE_HOST }} \
             --update-env-vars SUPABASE_PORT=${{ secrets.SUPABASE_PORT }} \
             --update-env-vars SUPABASE_DB=${{ secrets.SUPABASE_DB }} \
+            --update-env-vars SUPABASE_SCHEMA_NAME=${{ secrets.SUPABASE_SCHEMA_NAME }} \
             --update-env-vars GCP_STORAGE_BUCKET_NAME=${{ secrets.GCP_STORAGE_BUCKET_NAME }} \
             --update-env-vars GCP_STORAGE_ACCESS_KEY=${{ secrets.GCP_STORAGE_ACCESS_KEY }} \
             --update-env-vars GCP_STORAGE_SECRET=${{ secrets.GCP_STORAGE_SECRET }} \
             --update-env-vars GCP_STORAGE_URI=${{ secrets.GCP_STORAGE_URI }} \
             --allow-unauthenticated
-  
