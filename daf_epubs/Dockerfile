@@ -5,7 +5,8 @@ FROM python:3.11.7
 ENV APP_HOME /app
 ENV POETRY_HOME /poetry
 ENV PATH $POETRY_HOME/bin:$PATH
-ENV POETRY_CACHE_DIR=$APP_HOME/.cache/pypoetry
+ENV XDG_CACHE_HOME=$APP_HOME/.cache 
+ENV POETRY_CACHE_DIR=$XDG_CACHE_HOME/pypoetry
 
 # Install Poetry
 RUN pip install poetry
@@ -16,7 +17,7 @@ RUN groupadd myappgroup && useradd -G myappgroup myappuser
 
 # Set the working directory to /app and change ownership to the non-root user
 WORKDIR $APP_HOME
-RUN chown myappuser:myappgroup $APP_HOME
+RUN chown -R myappuser:myappgroup $APP_HOME
 
 # Copy only the dependencies file to the container
 COPY pyproject.toml poetry.lock* $APP_HOME/
@@ -32,7 +33,7 @@ USER root
 COPY . .
 
 # Default environment variable
-ENV ENVIRONMENT=production
+ENV ENVIRONMENT=staging
 
 # Expose the port the application runs on
 EXPOSE 8000
