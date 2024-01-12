@@ -33,7 +33,7 @@ USER root
 COPY . .
 
 # Default environment variable
-ENV ENVIRONMENT=staging
+ENV ENVIRONMENT=production
 
 # Expose the port the application runs on
 EXPOSE 8000
