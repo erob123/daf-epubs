@@ -13,6 +13,8 @@ jobs:
       PROJECT_DIR: daf_epubs  # Define the project directory as an environment variable
       PORT: 8000
       ENVIRONMENT: production
+      GCP_SUPA_CERT_SECRET_NAME: daf-epubs-supabase-ssl-cert
+      SUPA_SSL_CERT_MOUNT: /app/db_ssl/db_cert.crt
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -63,4 +65,5 @@ jobs:
             --update-env-vars GCP_STORAGE_SECRET=${{ secrets.GCP_STORAGE_SECRET }} \
             --update-env-vars GCP_STORAGE_URI=${{ secrets.GCP_STORAGE_URI }} \
             --update-env-vars GCR_REGION=${{ secrets.GCR_REGION }} \
+            --update-secrets=${{ env.SUPA_SSL_CERT_MOUNT }}=${{ env.GCP_SUPA_CERT_SECRET_NAME }}:latest \
             --allow-unauthenticated
