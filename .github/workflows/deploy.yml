@@ -49,7 +49,7 @@ jobs:
             --region us-central1 \
             --memory 1Gi \
             --cpu 1 \
-            --update-env-vars ENVIRONMENT=staging \
+            --update-env-vars ENVIRONMENT=production \
             --update-env-vars SUPABASE_USER=${{ secrets.SUPABASE_USER }} \
             --update-env-vars SUPABASE_PASSWORD=${{ secrets.SUPABASE_PASSWORD }} \
             --update-env-vars SUPABASE_HOST=${{ secrets.SUPABASE_HOST }} \
