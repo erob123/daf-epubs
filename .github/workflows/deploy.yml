@@ -60,4 +60,5 @@ jobs:
             --update-env-vars GCP_STORAGE_ACCESS_KEY=${{ secrets.GCP_STORAGE_ACCESS_KEY }} \
             --update-env-vars GCP_STORAGE_SECRET=${{ secrets.GCP_STORAGE_SECRET }} \
             --update-env-vars GCP_STORAGE_URI=${{ secrets.GCP_STORAGE_URI }} \
+            --update-env-vars GCR_REGION=${{ secrets.GCR_REGION }} \
             --allow-unauthenticated
