@@ -49,7 +49,7 @@ jobs:
             --port ${{ env.PORT }} \
             --platform managed \
             --region us-central1 \
-            --memory 1Gi \
+            --memory 2Gi \
             --cpu 1 \
             --update-env-vars ENVIRONMENT=${{ env.ENVIRONMENT }} \
             --update-env-vars SUPABASE_USER=${{ secrets.SUPABASE_USER }} \

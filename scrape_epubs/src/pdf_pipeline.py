@@ -173,3 +173,5 @@ def save_json_chunk_data_to_db(json_source_list):
         # save page numbers and metadata for unstructured object
         # save published date for source and if parsed successfully
         # move from json load to scrape load
+        # cloud run persistent compute
+        # load params first not on demand
