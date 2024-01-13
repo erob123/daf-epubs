@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PROJECT_DIR: daf_epubs  # Define the project directory as an environment variable
-
+      PORT: 8000
+      ENVIRONMENT: production
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -45,11 +46,12 @@ jobs:
         run: |
           gcloud run deploy ${{ secrets.GCP_CLOUD_RUN_APP_NAME }} \
             --image ${{ secrets.GCR_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ART_REG_REPO_IMAGE_NAME }} \
+            --port ${{ env.PORT }} \
             --platform managed \
             --region us-central1 \
             --memory 1Gi \
             --cpu 1 \
-            --update-env-vars ENVIRONMENT=production \
+            --update-env-vars ENVIRONMENT=${{ env.ENVIRONMENT }} \
             --update-env-vars SUPABASE_USER=${{ secrets.SUPABASE_USER }} \
             --update-env-vars SUPABASE_PASSWORD=${{ secrets.SUPABASE_PASSWORD }} \
             --update-env-vars SUPABASE_HOST=${{ secrets.SUPABASE_HOST }} \

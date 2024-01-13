@@ -1,11 +1,13 @@
+import os
+os.environ["SECRETS"] = "True"
 import re
 import time
 from selenium import webdriver
 import time
 import json
 from datetime import datetime
-from .source_saver import save_json_source_data_to_db
-from .pdf_pipeline import save_json_chunk_data_to_db
+from source_saver import save_json_source_data_to_db
+from pdf_pipeline import save_json_chunk_data_to_db
 from aimbase.initializer import AimbaseInitializer
 from instarest import Initializer, DeclarativeBase
 
@@ -103,9 +105,9 @@ def run_scraper():
     # Start measuring time
     start_time = time.time()
 
-    # publications_data = scraper()
-    with open("./publications_data.json", 'r') as file:
-        publications_data = json.load(file)
+    publications_data = scraper()
+    # with open("./publications_data.json", 'r') as file:
+    #     publications_data = json.load(file)
 
     Initializer(DeclarativeBase).execute(vector_toggle=True)
     AimbaseInitializer().execute()
