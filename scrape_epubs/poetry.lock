@@ -2,17 +2,17 @@
 
 [[package]]
 name = "aimbase"
-version = "0.0.8"
+version = "0.0.9"
 description = "Declarative, instant REST APIs for base AI Models based on instarest, a FastAPI, Pydantic, SQLAlchemy, and PostgreSQL library, and MinIO."
 optional = false
 python-versions = ">=3.11,<3.12"
 files = [
-    {file = "aimbase-0.0.8-py3-none-any.whl", hash = "sha256:63d966ee2484cde6eb23c36c5affe2134aa01454064b18a01891e5d1cb1f869e"},
-    {file = "aimbase-0.0.8.tar.gz", hash = "sha256:b2e4ecad053d5f769a0065f751a2100f26f330c639ce9f2db7c527524536973d"},
+    {file = "aimbase-0.0.9-py3-none-any.whl", hash = "sha256:778842dbb675e16ccd8e4499cc93fde6d3d1be2bedd591149069fad2f0155449"},
+    {file = "aimbase-0.0.9.tar.gz", hash = "sha256:be2d30631b5fd3bb36d96ecd9012e4462e3ba032370012e3e5aae040f4257604"},
 ]
 
 [package.dependencies]
-instarest = ">=0.0.11,<0.0.12"
+instarest = ">=0.0.12,<0.0.13"
 minio = ">=7.1.15,<8.0.0"
 openai = ">=1.3.8,<2.0.0"
 pgvector = ">=0.2.3,<0.3.0"
@@ -947,13 +947,13 @@ files = [
 
 [[package]]
 name = "instarest"
-version = "0.0.11"
+version = "0.0.12"
 description = "Declarative, instant REST APIs based on FastAPI, Pydantic, SQLAlchemy, and PostgreSQL"
 optional = false
 python-versions = ">=3.11,<4.0"
 files = [
-    {file = "instarest-0.0.11-py3-none-any.whl", hash = "sha256:184f7687f92304643b3f935f7ec46305d65f902ab9c28ac407a3e4fbf16147f7"},
-    {file = "instarest-0.0.11.tar.gz", hash = "sha256:475319f2576bbc37fe0d4b37925c505689303b284d7e76fbd8f095c8a54d8bc9"},
+    {file = "instarest-0.0.12-py3-none-any.whl", hash = "sha256:4363deb877cd6e43561b45a8c773fa1f6964119380bb44b604c2817a2e00886a"},
+    {file = "instarest-0.0.12.tar.gz", hash = "sha256:130323d8476e5cc4e9775e88d40bc229047bbbd153af110077a7430e4605116a"},
 ]
 
 [package.dependencies]
@@ -3906,4 +3906,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "121245e3a77fb9584fe9e19f357ea666a5fae527caf3383c29c2d46bc6452dd9"
+content-hash = "d7dba57102e74277a27dc3335d9dc18ba6c7933ddb191f2a2ea7e7686bf7ec2e"
