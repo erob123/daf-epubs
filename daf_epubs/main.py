@@ -51,7 +51,7 @@ SentenceTransformersInferenceService(
     db=next(get_db()),
     crud=crud_ai_test,
     s3=get_minio(),
-    prioritize_internet_download=False,
+    prioritize_internet_download=True,
 ).dev_init()
 ## ************ DEV INITIALIZATION ONLY ************ ##
 
