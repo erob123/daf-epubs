@@ -51,12 +51,17 @@ SentenceTransformersInferenceService(
     db=next(get_db()),
     crud=crud_ai_test,
     s3=get_minio(),
-    prioritize_internet_download=True,
+    prioritize_internet_download=False,
 ).dev_init()
 ## ************ DEV INITIALIZATION ONLY ************ ##
 
 # build ai router automagically
-document_vector_store_router = SentenceTransformersRouter(
+class EpubsRouter(SentenceTransformersRouter):
+    # override to hide all endpoints except knn search
+    def _add_endpoints(self):
+        self._define_knn_search()
+
+document_vector_store_router = EpubsRouter(
     model_name="all-MiniLM-L6-v2",
     schema_base=vector_embedding_schemas,
     crud_ai_base=crud_ai_test,
