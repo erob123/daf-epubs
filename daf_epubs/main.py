@@ -4,7 +4,6 @@
 # variables are loaded before the app is initialized.
 # Default values are: ENVIRONMENT=local, ENV_VAR_FOLDER=./env_vars, SECRETS=False if not set here
 ## ************ ENV VAR INIT BEFORE IMPORTS ************ ##
-
 from aimbase.crud.base import CRUDBaseAIModel
 from aimbase.db.base import BaseAIModel
 from aimbase.initializer import AimbaseInitializer
