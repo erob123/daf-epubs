@@ -2,17 +2,17 @@
 
 [[package]]
 name = "aimbase"
-version = "0.0.9"
+version = "0.0.10"
 description = "Declarative, instant REST APIs for base AI Models based on instarest, a FastAPI, Pydantic, SQLAlchemy, and PostgreSQL library, and MinIO."
 optional = false
 python-versions = ">=3.11,<3.12"
 files = [
-    {file = "aimbase-0.0.9-py3-none-any.whl", hash = "sha256:778842dbb675e16ccd8e4499cc93fde6d3d1be2bedd591149069fad2f0155449"},
-    {file = "aimbase-0.0.9.tar.gz", hash = "sha256:be2d30631b5fd3bb36d96ecd9012e4462e3ba032370012e3e5aae040f4257604"},
+    {file = "aimbase-0.0.10-py3-none-any.whl", hash = "sha256:8d93ec427dbe21af4d2d68f180ef385a2234422f23c36df28ed36b8d36871613"},
+    {file = "aimbase-0.0.10.tar.gz", hash = "sha256:2060b50fcc6ccb1bf56c22386e42e6c335f3f6478982fd68f8b542a877f802d2"},
 ]
 
 [package.dependencies]
-instarest = ">=0.0.12,<0.0.13"
+instarest = ">=0.0.13"
 minio = ">=7.1.15,<8.0.0"
 openai = ">=1.3.8,<2.0.0"
 pgvector = ">=0.2.3,<0.3.0"
@@ -608,13 +608,13 @@ files = [
 
 [[package]]
 name = "instarest"
-version = "0.0.12"
+version = "0.0.13"
 description = "Declarative, instant REST APIs based on FastAPI, Pydantic, SQLAlchemy, and PostgreSQL"
 optional = false
 python-versions = ">=3.11,<4.0"
 files = [
-    {file = "instarest-0.0.12-py3-none-any.whl", hash = "sha256:4363deb877cd6e43561b45a8c773fa1f6964119380bb44b604c2817a2e00886a"},
-    {file = "instarest-0.0.12.tar.gz", hash = "sha256:130323d8476e5cc4e9775e88d40bc229047bbbd153af110077a7430e4605116a"},
+    {file = "instarest-0.0.13-py3-none-any.whl", hash = "sha256:83aa443a4e8d4d80d8e984484fc6ec4f34932d748e3a84f0183af3f4de90d0e8"},
+    {file = "instarest-0.0.13.tar.gz", hash = "sha256:6ca43441f058c3f0a39cf4b80dc417492f70faa88da73ac5f0d25dfb3d52830a"},
 ]
 
 [package.dependencies]
@@ -2387,4 +2387,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "e3d2b05cc79cfdf8973ae0a17133f8862dc026fa76d6e74b64b963065cecc6fa"
+content-hash = "cec78b11726684244aced1c5eecb5dd99ecf9e95e33e971f71313fbb69219f05"
