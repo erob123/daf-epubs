@@ -67,3 +67,11 @@ jobs:
             --update-env-vars GCR_REGION=${{ secrets.GCR_REGION }} \
             --update-secrets=${{ env.SUPA_SSL_CERT_MOUNT }}=${{ env.GCP_SUPA_CERT_SECRET_NAME }}:latest \
             --allow-unauthenticated
+
+      - name: Update Firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DAF_EPUBS }}'
+          channelId: live
+          projectId: daf-epubs
