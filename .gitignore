@@ -2,6 +2,9 @@
 secrets*.env
 prod-ca-2021.crt
 
+# firebase
+.firebase
+
 # local development and generation
 coverage-re
 

@@ -40,4 +40,4 @@ EXPOSE 8000
 
 # Command to run the application as the non-root user
 USER myappuser
-CMD ["poetry", "run", "uvicorn", "main:auto_app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["poetry", "run", "uvicorn", "main:prefix_app", "--host", "0.0.0.0", "--port", "8000"]

@@ -29,6 +29,7 @@ from instarest import (
 from aimbase.services.sentence_transformers_inference import (
     SentenceTransformersInferenceService,
 )
+from fastapi import FastAPI
 
 # TODO: import to __init__.py for aimbase and update imports here
 Initializer(DeclarativeBase).execute(vector_toggle=True)
@@ -101,5 +102,10 @@ auto_app = app_base.get_autowired_app()
 
 # core underlying app
 app = app_base.get_core_app()
+
+# if not deploying behind a proxy, mount under an empty fastapi app to still get /api prefix before version, i.e., /api/v1
+# if behind a proxy, use the env var DOCS_UI_ROOT_PATH from instarest instead
+prefix_app = FastAPI()
+prefix_app.mount("/api", auto_app)
 
 #TODO: initialize models before running

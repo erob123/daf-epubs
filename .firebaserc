@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "daf-epubs"
+  },
+  "targets": {
+    "daf-epubs": {
+      "hosting": {
+        "daf-epubs": [
+          "daf-epubs"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

@@ -1,0 +1,27 @@
+{
+  "hosting": {
+    "target": "daf-epubs",
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "/api/**",
+        "run": {
+          "serviceId": "daf-epubs-cloud-run",
+          "region": "us-central1"
+        }
+      },
+      {
+        "source": "/api",
+        "run": {
+          "serviceId": "daf-epubs-cloud-run",
+          "region": "us-central1"
+        }
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
