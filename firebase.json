@@ -20,7 +20,10 @@
       },
       {
         "source": "**",
-        "destination": "/index.html"
+        "run": {
+          "serviceId": "daf-epubs-cloud-run",
+          "region": "us-central1"
+        }
       }
     ]
   }

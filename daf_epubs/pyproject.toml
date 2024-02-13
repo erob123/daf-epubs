@@ -11,6 +11,10 @@ packages = []
 python = "~3.11"
 aimbase = "^0.0.10"
 sentence-transformers = "^2.2.2"
+google-generativeai = "^0.3.2"
+langchain-google-genai = "^0.0.6"
+langchain = "^0.1.2"
+chainlit = "^1.0.200"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6.0"

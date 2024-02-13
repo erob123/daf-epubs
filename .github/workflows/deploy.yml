@@ -54,6 +54,7 @@ jobs:
             --memory 4Gi \
             --cpu 2 \
             --update-env-vars ENVIRONMENT=${{ env.ENVIRONMENT }} \
+            --update-env-vars GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }} \
             --update-env-vars SUPABASE_USER=${{ secrets.SUPABASE_USER }} \
             --update-env-vars SUPABASE_PASSWORD=${{ secrets.SUPABASE_PASSWORD }} \
             --update-env-vars SUPABASE_HOST=${{ secrets.SUPABASE_HOST }} \
