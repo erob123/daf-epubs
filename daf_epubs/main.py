@@ -312,7 +312,6 @@ async def main(message: cl.Message):
 
 # use chainlit and langchain for this with the underlying tool to pull from daf-epubs
 # attach prefix_api to the chainlit fastapi app and adjust dockerfile
-# smaller cross encoder
 # add "secrets-extra.env" to readme
 # add page numbers and prompt to build source links with page numbers
 # limit knn k value and overall rate limit
