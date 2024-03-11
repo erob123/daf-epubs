@@ -43,4 +43,4 @@ USER myappuser
 
 # use one of the below to run depending on configuration (api only vs. chatbot interface and api)
 # CMD ["poetry", "run", "uvicorn", "main:prefix_app", "--host", "0.0.0.0", "--port", "8000"]
-CMD ["chainlit", "run", "app/main.py", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["poetry", "run", "chainlit", "run", "main.py", "--host", "0.0.0.0", "--port", "8000"]
